@@ -1,2 +1,6 @@
 target/
 .settings/
+allure-results/
+test-output/
+output/
+hs_err_pid11685.log
