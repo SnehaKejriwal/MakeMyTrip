@@ -22,9 +22,9 @@ public class BaseTest {
 		DriverFactory.getDriver();
 	}
 
-	/*
-	 * @AfterMethod public void tearDown() {
-	 * DriverFactory.getCurrentDriver().close(); }
-	 */
+	@AfterMethod
+	public void tearDown() {
+		DriverFactory.getCurrentDriver().quit();
+	}
 
 }
