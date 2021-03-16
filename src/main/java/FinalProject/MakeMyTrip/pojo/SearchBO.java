@@ -3,7 +3,7 @@ package FinalProject.MakeMyTrip.pojo;
 import java.util.List;
 
 public class SearchBO {
-	
+
 	private String city;
 	private String checkinDate;
 	private String checkoutDate;
@@ -15,14 +15,16 @@ public class SearchBO {
 	private String children1Age;
 	private String children2Age;
 	private String children3Age;
-	
+
 	private List<String> childrenAge;
-	
+
 	private String travellingReason;
-	
+
 	private String pricePerNight;
-	
+
 	private String userRating;
+
+	private String room_GuestDetails;
 
 	public String getCity() {
 		return city;
@@ -38,6 +40,14 @@ public class SearchBO {
 
 	public void setCheckinDate(String checkinDate) {
 		this.checkinDate = checkinDate;
+	}
+
+	public String getRoom_GuestDetails() {
+		return room_GuestDetails;
+	}
+
+	public void setRoom_GuestDetails(String room_GuestDetails) {
+		this.room_GuestDetails = room_GuestDetails;
 	}
 
 	public String getCheckoutDate() {
@@ -134,14 +144,7 @@ public class SearchBO {
 				+ ", roomCount=" + roomCount + ", adultCount=" + adultCount + ", childrenCount=" + childrenCount
 				+ ", children1Age=" + children1Age + ", children2Age=" + children2Age + ", children3Age=" + children3Age
 				+ ", childrenAge=" + childrenAge + ", travellingReason=" + travellingReason + ", pricePerNight="
-				+ pricePerNight + ", userRating=" + userRating + "]";
+				+ pricePerNight + ", userRating=" + userRating + ", room_GuestDetails=" + room_GuestDetails + "]";
 	}
 
-	
-
-	
-
-	
-
-	
 }

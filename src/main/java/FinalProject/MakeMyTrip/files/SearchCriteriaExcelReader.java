@@ -59,7 +59,7 @@ public class SearchCriteriaExcelReader {
 						value = sheet.getRow(i).getCell(j).getStringCellValue();
 						break;
 					case NUMERIC:
-						
+
 						value = String.valueOf(sheet.getRow(i).getCell(j).getNumericCellValue());
 						break;
 					default:
@@ -79,28 +79,24 @@ public class SearchCriteriaExcelReader {
 			if (isEndOfRow) {
 				break;
 			}
-			// System.out.println(rowMap);
 
 			SearchBO search = new SearchBO();
-			search.setCity(rowMap.get("City"));
-			search.setCheckinDate(rowMap.get("Checkin"));
-			search.setCheckoutDate(rowMap.get("CheckOut"));
 			search.setRoomCount(rowMap.get("RoomCount"));
 			search.setAdultCount(rowMap.get("AdultCount"));
 			search.setChildrenCount(rowMap.get("ChildrenCount"));
 			search.setChildren1Age(rowMap.get("Children1_Age"));
 			search.setChildren2Age(rowMap.get("Children2_Age"));
 			search.setChildren3Age(rowMap.get("Children3_Age"));
-			
+
 			listOfchildrenAge.add(search.getChildren1Age());
-	        listOfchildrenAge.add(search.getChildren2Age());
-	        listOfchildrenAge.add(search.getChildren3Age());
-	        search.setChildrenAge(listOfchildrenAge);
-	        
-	        search.setTravellingReason(rowMap.get("TravellingReason"));
-	        search.setPricePerNight(rowMap.get("PricePerNight"));
-	        search.setUserRating(rowMap.get("UserRating"));
-	        searchList.add(search);
+			listOfchildrenAge.add(search.getChildren2Age());
+			listOfchildrenAge.add(search.getChildren3Age());
+			search.setChildrenAge(listOfchildrenAge);
+
+			search.setTravellingReason(rowMap.get("TravellingReason"));
+			search.setPricePerNight(rowMap.get("PricePerNight"));
+			search.setUserRating(rowMap.get("UserRating"));
+			searchList.add(search);
 
 		}
 

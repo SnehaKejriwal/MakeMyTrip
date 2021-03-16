@@ -1,7 +1,5 @@
 package FinalProject.MakeMyTrip.tests;
 
-import java.util.List;
-
 import org.apache.log4j.PropertyConfigurator;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -24,9 +22,9 @@ public class BaseTest {
 		DriverFactory.getDriver();
 	}
 
-	@AfterMethod
-	public void tearDown() {
-		DriverFactory.getCurrentDriver().close();
-	}
+	/*
+	 * @AfterMethod public void tearDown() {
+	 * DriverFactory.getCurrentDriver().close(); }
+	 */
 
 }
