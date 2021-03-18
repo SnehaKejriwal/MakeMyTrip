@@ -36,19 +36,20 @@ public class HotelDetailPage extends BasePage {
 		boolean recommendationSectionAvailable = false;
 		logger.info("scrolling to room tab");
 		try {
-		if (isElementDisplayed(recommended_room_field)) {
-			recommendationSectionAvailable = true;
-			WebElement ele = getElement(recommended_room_field);
-			scrollIntoView(ele);
-			String recommendedRoomDetail = getText(ele);
-			logger.info("recommended room detail " + recommendedRoomDetail);
-			logger.info("Guest count as per search criteria" + search.getRoom_GuestDetails());
-			if (recommendedRoomDetail.contains(search.getRoom_GuestDetails())) {
-				logger.info("recommendation is based on search criteria");
-			} else {
-				logger.info("recommendation is not based on search Criteria");
+			if (isElementDisplayed(recommended_room_field)) {
+				recommendationSectionAvailable = true;
+				WebElement ele = getElement(recommended_room_field);
+				scrollIntoView(ele);
+				String recommendedRoomDetail = getText(ele);
+				logger.info("recommended room detail " + recommendedRoomDetail);
+				logger.info("Guest count as per search criteria" + search.getRoom_GuestDetails());
+				if (recommendedRoomDetail.contains(search.getRoom_GuestDetails())) {
+					logger.info("recommendation is based on search criteria");
+				} else {
+					logger.info("recommendation is not based on search Criteria");
+				}
 			}
-		} }catch(NoSuchElementException e){
+		} catch (NoSuchElementException e) {
 			logger.info("recommendation section is not available");
 			recommendationSectionAvailable = false;
 		}
@@ -73,16 +74,19 @@ public class HotelDetailPage extends BasePage {
 	// method to click reviewBtn
 	public void clickReviewDetailBtn() {
 		logger.info("clicking review button");
-		if (isElementDisplayed(reviewDetails_button)) {
-			click(reviewDetails_button);
-			logger.info("Review Button is clicked");
-			if (isElementDisplayed(headUp_popup)) {
-				click(headUp_popup);
-				logger.info("continuing to review page");
-			} else {
-				logger.info("No Popup Present");
+		try {
+			if (isElementDisplayed(reviewDetails_button)) {
+				click(reviewDetails_button);
+				logger.info("Review Button is clicked");
+				if (isElementDisplayed(headUp_popup)) {
+					click(headUp_popup);
+					logger.info("continuing to review page");
+				} else {
+					logger.info("No Popup Present");
+				}
 			}
-		} else {
+		} catch (NoSuchElementException e) {
+			logger.info("Exception Handled");
 			logger.error("Element is not visible");
 		}
 	}

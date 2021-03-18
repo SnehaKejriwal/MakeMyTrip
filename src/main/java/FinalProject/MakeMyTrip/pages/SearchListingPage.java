@@ -81,11 +81,13 @@ public class SearchListingPage extends BasePage {
 	// method to apply price per night filter
 	public void applyPricePerNightFilter() {
 		logger.info("Applying price filter");
+		try {
 		if (isElementDisplayed(minimum_price_filter)) {
 			WebElement priceFilterSlider = getElement(minimum_price_filter);
 			dragAndDropBy(priceFilterSlider);
 			logger.info("price filter applied");
-		} else {
+		} }catch(NoSuchElementException e) {
+			logger.info("Exception Handled");
 			logger.error("Filter is not applied");
 		}
 	}
