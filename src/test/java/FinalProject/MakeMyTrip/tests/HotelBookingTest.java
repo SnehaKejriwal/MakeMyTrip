@@ -23,19 +23,19 @@ public class HotelBookingTest extends BaseTest {
 		HomePageFlow.performSearch(search);
 		Assert.assertTrue(home.isSearchSuccess(), "Search failed");
 		
-		SearchListingPage searchPage = new SearchListingPage(14);
+		SearchListingPage searchPage = new SearchListingPage(15);
 		//Applying filter and selecting hotel
 		SearchListingPageFlow.selectHotelBasedOnFilter(search);
 		Assert.assertTrue(searchPage.isHotelSelectedSuccess(), "Hotel was not selected");
 	   
-		HotelDetailPage hotelPage = new HotelDetailPage(8);
+		HotelDetailPage hotelPage = new HotelDetailPage(10);
 		// verifying recommendedRoom and Adding Room
-	    hotelPage.verifyRecommendedRoom(search);
-	    hotelPage.addRoom();
+	   boolean recommendedSectionAvailable =  hotelPage.verifyRecommendedRoom(search);
+	    hotelPage.addRoom(recommendedSectionAvailable);
 	    hotelPage.clickReviewDetailBtn();
 	    Assert.assertTrue(hotelPage.isHotelDetailSuccess(), "Hotel Details are not same");
 	    
-	    ReviewPage reviewPage = new ReviewPage(5);
+	    ReviewPage reviewPage = new ReviewPage(8);
 	    HotelBO hotel = new HotelBO();
 	    //verifying Hotel, Fill Guest information and Clicking Pay
 	    reviewPage.verifyHotelInformation(hotel, search);

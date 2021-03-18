@@ -1,5 +1,7 @@
 package FinalProject.MakeMyTrip.pages;
 
+import java.util.NoSuchElementException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -18,6 +20,7 @@ public class HotelDetailPage extends BasePage {
 	By roomType_header = By.cssSelector(".roomheader");
 	By RoomTypeRow = By.cssSelector(".roomLeftContRow");
 	By addRoomBtn = By.cssSelector(".Middle #detpg_multi_2_add_room");
+	By selectRoomBtn = By.xpath("//a[text() ='SELECT ROOM']");
 	By reviewDetails_button = By.id("detpg_confirm_booking_btn");
 	By reviewBookingHeader = By.cssSelector(".rvHeader__heading");
 	By headUp_popup = By.cssSelector(".btnMakePayment");
@@ -26,12 +29,15 @@ public class HotelDetailPage extends BasePage {
 	 * method to verify recommended section on hotel Detail page
 	 * 
 	 * @param SearchBO
+	 * 
 	 * @return boolean
 	 */
 	public boolean verifyRecommendedRoom(SearchBO search) {
-		boolean isRecommendedCorrect = false;
+		boolean recommendationSectionAvailable = false;
 		logger.info("scrolling to room tab");
+		try {
 		if (isElementDisplayed(recommended_room_field)) {
+			recommendationSectionAvailable = true;
 			WebElement ele = getElement(recommended_room_field);
 			scrollIntoView(ele);
 			String recommendedRoomDetail = getText(ele);
@@ -39,26 +45,32 @@ public class HotelDetailPage extends BasePage {
 			logger.info("Guest count as per search criteria" + search.getRoom_GuestDetails());
 			if (recommendedRoomDetail.contains(search.getRoom_GuestDetails())) {
 				logger.info("recommendation is based on search criteria");
-				isRecommendedCorrect = true;
+			} else {
+				logger.info("recommendation is not based on search Criteria");
 			}
+		} }catch(NoSuchElementException e){
+			logger.info("recommendation section is not available");
+			recommendationSectionAvailable = false;
 		}
-		return isRecommendedCorrect;
+		return recommendationSectionAvailable;
 	}
 
-	//method to add Room
-	public void addRoom() {
+	// method to add Room
+	public void addRoom(boolean recommendedSectionAvailable) {
 		logger.info("Adding room");
 		WebElement roomTypeHeader = getElement(roomType_header);
 		scrollIntoView(roomTypeHeader);
-
-		WebElement roomsRow = getElement(RoomTypeRow);
-		WebElement room = roomsRow.findElement(addRoomBtn);
-
-		click(room);
-		logger.info("Room Added");
+		if (recommendedSectionAvailable) {
+			WebElement roomsRow = getElement(RoomTypeRow);
+			WebElement room = roomsRow.findElement(addRoomBtn);
+			click(room);
+			logger.info("Room Added");
+		} else {
+			click(selectRoomBtn);
+		}
 	}
 
-	//method to click reviewBtn
+	// method to click reviewBtn
 	public void clickReviewDetailBtn() {
 		logger.info("clicking review button");
 		if (isElementDisplayed(reviewDetails_button)) {

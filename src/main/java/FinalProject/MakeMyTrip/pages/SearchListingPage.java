@@ -1,6 +1,7 @@
 package FinalProject.MakeMyTrip.pages;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -44,7 +45,7 @@ public class SearchListingPage extends BasePage {
 	public boolean verifySearchCriteria(SearchBO search, String name) {
 		boolean isSearchCriteriaVerified = false;
 		logger.info("verifying search criteria data ");
-		
+
 		WebElement city = getElement(city_name);
 		String cityName = getAttribute(city, name);
 		search.setCity(cityName);
@@ -80,12 +81,15 @@ public class SearchListingPage extends BasePage {
 	// method to apply price per night filter
 	public void applyPricePerNightFilter() {
 		logger.info("Applying price filter");
-		if(isElementDisplayed(minimum_price_filter)) {
-		WebElement priceFilterSlider = getElement(minimum_price_filter);	
-		dragAndDropBy(priceFilterSlider);
-		logger.info("price filter applied");
+		if (isElementDisplayed(minimum_price_filter)) {
+			WebElement priceFilterSlider = getElement(minimum_price_filter);
+			dragAndDropBy(priceFilterSlider);
+			logger.info("price filter applied");
+		} else {
+			logger.error("Filter is not applied");
+		}
 	}
-	}
+
 	/*
 	 * method to apply userRatingFilter
 	 * 
@@ -93,16 +97,23 @@ public class SearchListingPage extends BasePage {
 	 */
 	public void applyUserRatingFilter(SearchBO search) {
 		logger.info("Applying user rating filter");
-		WebElement propertyTypeFilter = getElement(propertyType_filter);
-		scrollIntoView(propertyTypeFilter);
-		List<WebElement> listUserRating = getListOfWebElement(userRating_filter_checkbox);
-		for (WebElement userRating : listUserRating) {
-			String userRatingText = getText(userRating);
-			if (userRatingText.equalsIgnoreCase(search.getUserRating())) {
-				clickUsingJs(userRating);
-				logger.info("clicked user rating filter");
-				break;
+		try {
+			if (isElementDisplayed(propertyType_filter)) {
+				WebElement propertyTypeFilter = getElement(propertyType_filter);
+				scrollIntoView(propertyTypeFilter);
+				List<WebElement> listUserRating = getListOfWebElement(userRating_filter_checkbox);
+				for (WebElement userRating : listUserRating) {
+					String userRatingText = getText(userRating);
+					if (userRatingText.equalsIgnoreCase(search.getUserRating())) {
+						clickUsingJs(userRating);
+						logger.info("user rating filter applied");
+						break;
+					}
+				}
 			}
+		} catch (NoSuchElementException e) {
+			logger.info("exception handled");
+			logger.error("user rating filter is not applied");
 		}
 	}
 
@@ -119,12 +130,13 @@ public class SearchListingPage extends BasePage {
 		List<WebElement> listAppliedFilter = getListOfWebElement(appliedFilterArea);
 		for (WebElement appliedFilter : listAppliedFilter) {
 			String filterText = getText(appliedFilter);
-			if (filterText.equalsIgnoreCase(search.getPricePerNight()) || filterText.equalsIgnoreCase(search.getUserRating()) ) {
+			if (filterText.equalsIgnoreCase(search.getPricePerNight())
+					|| filterText.equalsIgnoreCase(search.getUserRating())) {
 				appliedFilterIsCorrect = true;
-			} /*
-				 * else if (filterText.equalsIgnoreCase(search.getUserRating())) {
-				 * appliedFilterIsCorrect = true; }
-				 */
+				logger.info("Applied filter is correct");
+			} else {
+				logger.error("Applied filter is not correct");
+			}
 		}
 
 		return appliedFilterIsCorrect;
@@ -136,6 +148,7 @@ public class SearchListingPage extends BasePage {
 	 * @return HotelBO
 	 */
 	public HotelBO selectHotel() {
+		logger.info("initiating selection of hotel");
 		List<WebElement> listOfHotels = getListOfWebElement(hotel_list);
 		HotelBO hotel = new HotelBO();
 		if (listOfHotels.size() > 5) {
