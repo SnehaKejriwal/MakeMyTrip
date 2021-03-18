@@ -19,14 +19,17 @@ public class HotelBookingTest extends BaseTest {
 	@Test(dataProvider = "SearchCriteriaData", dataProviderClass = SearchCriteriaDataProvider.class)
 	public void bookHotel(SearchBO search) {
 		HomePage home = new HomePage(8);
+		// performing Search
 		HomePageFlow.performSearch(search);
 		Assert.assertTrue(home.isSearchSuccess(), "Search failed");
 		
-		SearchListingPage searchPage = new SearchListingPage(12);
+		SearchListingPage searchPage = new SearchListingPage(14);
+		//Applying filter and selecting hotel
 		SearchListingPageFlow.selectHotelBasedOnFilter(search);
 		Assert.assertTrue(searchPage.isHotelSelectedSuccess(), "Hotel was not selected");
 	   
 		HotelDetailPage hotelPage = new HotelDetailPage(8);
+		// verifying recommendedRoom and Adding Room
 	    hotelPage.verifyRecommendedRoom(search);
 	    hotelPage.addRoom();
 	    hotelPage.clickReviewDetailBtn();
@@ -34,6 +37,7 @@ public class HotelBookingTest extends BaseTest {
 	    
 	    ReviewPage reviewPage = new ReviewPage(5);
 	    HotelBO hotel = new HotelBO();
+	    //verifying Hotel, Fill Guest information and Clicking Pay
 	    reviewPage.verifyHotelInformation(hotel, search);
 	    GuestInformationBO guestInfo = reviewPage.generateGuestDetails();
 	    reviewPage.fillGuestDetail(guestInfo);

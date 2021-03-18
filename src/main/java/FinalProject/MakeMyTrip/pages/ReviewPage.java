@@ -30,8 +30,15 @@ public class ReviewPage extends BasePage {
 	By email_textbox = By.id("email");
 	By mobileNumber_textbox = By.id("mNo");
 	By payNow_Link = By.cssSelector(".btnContinuePayment");
-    By paymentOption = By.cssSelector(".payment__options__tab");
-	
+	By paymentOption = By.cssSelector(".payment__options__tab");
+
+	/*
+	 * method to perform verification of hotel Information
+	 * 
+	 * @param HotelBO, SearchBO
+	 * 
+	 * @return boolean
+	 */
 	public boolean verifyHotelInformation(HotelBO hotel, SearchBO search) {
 		boolean IsHotelInformationCorrect = false;
 		WebElement hotelName = getElement(hotelNameHeader);
@@ -52,6 +59,11 @@ public class ReviewPage extends BasePage {
 		return IsHotelInformationCorrect;
 	}
 
+	/*
+	 * method to generate fake Guest details using faker library
+	 * 
+	 * @return GuestInformationBO
+	 */
 	public GuestInformationBO generateGuestDetails() {
 		logger.info("generating data using faker");
 		GuestInformationBO guestInfo = new GuestInformationBO();
@@ -65,6 +77,11 @@ public class ReviewPage extends BasePage {
 
 	}
 
+	/*
+	 * method to fill GuestDetails
+	 * 
+	 * @param GuestInformationBO
+	 */
 	public void fillGuestDetail(GuestInformationBO guestInfo) {
 		logger.info("filling guest details");
 		WebElement guestDetailHeader = getElement(guest_DetailsHeader);
@@ -75,18 +92,26 @@ public class ReviewPage extends BasePage {
 		enterText(mobileNumber_textbox, guestInfo.getMobileNumber());
 	}
 
+	// method to click Pay
 	public void clickPay() {
 		logger.info("Clicking pay button");
 		if (isElementDisplayed(payNow_Link)) {
 			click(payNow_Link);
+			logger.info("payNow element is clicked");
 		} else {
 			logger.info("scrolling to element");
 			scrollIntoView(getElement(payNow_Link));
 			click(payNow_Link);
+			logger.info("payNow element is clicked");
 
 		}
 	}
-	
+
+	/*
+	 * method to verify payment page is displayed
+	 * 
+	 * @return boolean
+	 */
 	public boolean isPaymentPageVisible() {
 		return isElementDisplayed(paymentOption);
 	}

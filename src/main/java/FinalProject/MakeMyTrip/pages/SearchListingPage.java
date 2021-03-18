@@ -80,10 +80,12 @@ public class SearchListingPage extends BasePage {
 	// method to apply price per night filter
 	public void applyPricePerNightFilter() {
 		logger.info("Applying price filter");
-		WebElement priceFilterSlider = getElement(minimum_price_filter);
+		if(isElementDisplayed(minimum_price_filter)) {
+		WebElement priceFilterSlider = getElement(minimum_price_filter);	
 		dragAndDropBy(priceFilterSlider);
+		logger.info("price filter applied");
 	}
-
+	}
 	/*
 	 * method to apply userRatingFilter
 	 * 
@@ -113,18 +115,19 @@ public class SearchListingPage extends BasePage {
 	 */
 	public boolean verifyAppliedFilterContent(SearchBO search) {
 		logger.info("verifying applied filter content");
-		boolean appliedContentIsCorrect = false;
+		boolean appliedFilterIsCorrect = false;
 		List<WebElement> listAppliedFilter = getListOfWebElement(appliedFilterArea);
 		for (WebElement appliedFilter : listAppliedFilter) {
 			String filterText = getText(appliedFilter);
-			if (filterText.equalsIgnoreCase(search.getPricePerNight())) {
-				appliedContentIsCorrect = true;
-			} else if (filterText.equalsIgnoreCase(search.getUserRating())) {
-				appliedContentIsCorrect = true;
-			}
+			if (filterText.equalsIgnoreCase(search.getPricePerNight()) || filterText.equalsIgnoreCase(search.getUserRating()) ) {
+				appliedFilterIsCorrect = true;
+			} /*
+				 * else if (filterText.equalsIgnoreCase(search.getUserRating())) {
+				 * appliedFilterIsCorrect = true; }
+				 */
 		}
 
-		return appliedContentIsCorrect;
+		return appliedFilterIsCorrect;
 	}
 
 	/*

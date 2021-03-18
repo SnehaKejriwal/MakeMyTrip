@@ -39,7 +39,8 @@ public class HomePage extends BasePage {
 		openPage(url);
 
 	}
-// verify current Url
+
+	// verify current Url
 	public boolean verifyCurrentUrl() {
 		boolean userOnHotelPage = false;
 		String currentUrl = getCurrentUrl();

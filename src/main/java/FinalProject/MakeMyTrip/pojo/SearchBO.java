@@ -1,7 +1,7 @@
 package FinalProject.MakeMyTrip.pojo;
 
 import java.util.List;
-
+// to store Search Criteria
 public class SearchBO {
 
 	private String city;

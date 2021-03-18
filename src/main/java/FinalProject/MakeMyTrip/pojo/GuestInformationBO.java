@@ -1,5 +1,5 @@
 package FinalProject.MakeMyTrip.pojo;
-
+// to Store Guest Information
 public class GuestInformationBO {
 	private String firstName;
 	private String lastName;

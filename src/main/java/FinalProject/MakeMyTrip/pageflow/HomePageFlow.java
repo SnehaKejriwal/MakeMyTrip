@@ -11,7 +11,7 @@ public class HomePageFlow {
 	private static Logger logger = LogManager.getLogger(HomePageFlow.class);
 
 	/*
-	 * method to fil search Criteria based on searchBO object
+	 * method to fill search Criteria and perform search based on searchBO object
 	 * 
 	 * @param SearchBO
 	 */

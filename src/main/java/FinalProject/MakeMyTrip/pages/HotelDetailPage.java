@@ -20,8 +20,14 @@ public class HotelDetailPage extends BasePage {
 	By addRoomBtn = By.cssSelector(".Middle #detpg_multi_2_add_room");
 	By reviewDetails_button = By.id("detpg_confirm_booking_btn");
 	By reviewBookingHeader = By.cssSelector(".rvHeader__heading");
-	By headUp_alert = By.cssSelector(".btnMakePayment");
+	By headUp_popup = By.cssSelector(".btnMakePayment");
 
+	/*
+	 * method to verify recommended section on hotel Detail page
+	 * 
+	 * @param SearchBO
+	 * @return boolean
+	 */
 	public boolean verifyRecommendedRoom(SearchBO search) {
 		boolean isRecommendedCorrect = false;
 		logger.info("scrolling to room tab");
@@ -30,6 +36,7 @@ public class HotelDetailPage extends BasePage {
 			scrollIntoView(ele);
 			String recommendedRoomDetail = getText(ele);
 			logger.info("recommended room detail " + recommendedRoomDetail);
+			logger.info("Guest count as per search criteria" + search.getRoom_GuestDetails());
 			if (recommendedRoomDetail.contains(search.getRoom_GuestDetails())) {
 				logger.info("recommendation is based on search criteria");
 				isRecommendedCorrect = true;
@@ -38,6 +45,7 @@ public class HotelDetailPage extends BasePage {
 		return isRecommendedCorrect;
 	}
 
+	//method to add Room
 	public void addRoom() {
 		logger.info("Adding room");
 		WebElement roomTypeHeader = getElement(roomType_header);
@@ -50,22 +58,28 @@ public class HotelDetailPage extends BasePage {
 		logger.info("Room Added");
 	}
 
+	//method to click reviewBtn
 	public void clickReviewDetailBtn() {
 		logger.info("clicking review button");
 		if (isElementDisplayed(reviewDetails_button)) {
 			click(reviewDetails_button);
 			logger.info("Review Button is clicked");
-			if(isElementDisplayed(headUp_alert)) {
-				click(headUp_alert);
+			if (isElementDisplayed(headUp_popup)) {
+				click(headUp_popup);
 				logger.info("continuing to review page");
-			}else {
-				logger.info("No Alert Present");
+			} else {
+				logger.info("No Popup Present");
 			}
-		}else {
+		} else {
 			logger.error("Element is not visible");
 		}
 	}
-	
+
+	/*
+	 * method to verify whether reviewBooking page is displayed
+	 * 
+	 * @return boolean
+	 */
 	public boolean isHotelDetailSuccess() {
 		return isElementDisplayed(reviewBookingHeader);
 	}

@@ -1,5 +1,5 @@
 package FinalProject.MakeMyTrip.pojo;
-
+// To store hotel Information
 public class HotelBO {
 	private String hotelName;
 	private String roomType;
