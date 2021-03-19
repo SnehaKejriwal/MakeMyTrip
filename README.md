@@ -87,4 +87,21 @@ There are six packages
                    There is an enum class     : BrowserName. java
                    There is an abstract class : DriverManager.java
 
-2.files-- In this package there are two files one for reading property file and other excel reader files.
+2. files-- In this package there are two files one for reading property file and other excel reader files.
+
+
+
+
+
+## Creators
+
+*Sneha Kejriwal**
+
+- <https://github.com/SnehaKejriwal/>
+
+## Thanks
+<a href="https://www.thetesttribe.com/"></a>
+
+Thanks to [TheTestTribeCommunity](https://www.thetesttribe.com/) for providing such a wonderful platform and providing this Bootcamp.
+
+Thanks to my trainer [Kunal Ashar](https://github.com/kunalashar25) & [Amar Singh] for sharing your knowledge and help us learn automation in the most simpler way any beginner can ask for.
