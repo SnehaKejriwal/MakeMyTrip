@@ -9,7 +9,7 @@ TTT Automation Bootcamp Final Project
 Read the [Getting started page](https://www.notion.so/Getting-Started-db9caa03dae648f688597a29d73e0866)
 
 ## Project Description
-Automating a flow of hotel booking from makemytrip website using selenium. I have used java as a programming language and Maven as project build tool.
+Automating a flow of hotel booking from makemytrip website using selenium webdriver. I have used java as a programming language and Maven as project build tool.
 Have used TestNG for writing testcases.
 ##### Link of website
 <https://www.makemytrip.com/hotels/>
@@ -84,14 +84,34 @@ MakeMyTrip/
 ###### Source Folder src/main/ java
 There are six packages
 1. driverManager-- This package handles all the codes related launching of the browser and if any capabilites required for the browser.
-                   There is an enum class     : BrowserName. java
-                   There is an abstract class : DriverManager.java
+                   There is an enum class BrowserName.java where different browsers like chrome, firefox safari is defined as enum.
+                   There is an abstract class DriverManager.java. Different BrowserManager classes are extending this and providing implementation for the methods.
 
 2. files-- In this package there are two files one for reading property file and other excel reader files.
+3. pages-- In this packages all the pages related to test flow are there. There is an abstract BasePage class where all the methods related to browswer interaction are                      defined.This is the parent class for all the pages.
+4. pageflow-- In this package, I have defined different pagesFlow where a single method is responsible to perform all the operations related to a page. 
+              Like in HomePageFlow I have defined a method performSearch. This is just to reduce line of code in HotelBookingtest.java file.
+5. utilities-- In this package all the common files related to project is defined.
+6. pojo-- In this package, I have defined all the pojo classes.
 
+###### Source Folder src/test/java
+There are four packages
+1. dataprovider-- In this package , I have defined a class searchCriteriaDataProvider.java. This class is responsible for reading data from the excel file and provide the data                    to test method.
+2. listeners-- In this package, I have defined a customListener class that implements ITESTListener interface.
+3. testng-- In this package, I have defined a RunTimeTestNG class. This class is responsible for creating testng.xml at runtime.
+4. tests--In this package, I have defined two classes One is the BaseTest where i have used BeforeMethod and AfterMethod testng annotations
+          Second is the HotelBookingTest where my actual test method is defined.
 
+5. StartUp.java-- In this class all the prerequitise functionality is defined ie. loading propertyfile, configure log file, calling RunTimeTestNG class reading data before                        actual test begin 
 
+###### Source Folder src/main/resources
+I have defined two files 
 
+1. config.properties-- This file is responsible for providing url and browser choice.
+2. log.properties-- This file is responsible for defining the formatting and styling of logs.
+
+###### Source Folder src/test/resources
+In this, I have defined test data file. I have used excel as external source for defining searchCriteria.
 
 ## Creators
 
