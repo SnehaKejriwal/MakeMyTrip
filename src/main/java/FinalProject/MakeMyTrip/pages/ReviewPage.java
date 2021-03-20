@@ -48,10 +48,10 @@ public class ReviewPage extends BasePage {
 		}
 		List<WebElement> checkInCheckOutDateList = getListOfWebElement(checkInCheckOutDate);
 		for (WebElement checkinCheckout : checkInCheckOutDateList) {
-			if (checkinCheckout.getText().equalsIgnoreCase(search.getCheckinDate())) {
+			if (checkinCheckout.getText().equalsIgnoreCase(search.getCheckinDate().substring(5))) {
 				IsHotelInformationCorrect = true;
 				logger.info("checkin date is verified");
-			} else if (checkinCheckout.getText().equalsIgnoreCase(search.getCheckoutDate())) {
+			} else if (checkinCheckout.getText().equalsIgnoreCase(search.getCheckoutDate().substring(5))) {
 				IsHotelInformationCorrect = true;
 				logger.info("check out date is verified");
 			}

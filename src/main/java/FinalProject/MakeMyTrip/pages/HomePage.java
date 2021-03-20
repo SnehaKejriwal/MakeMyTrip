@@ -66,7 +66,7 @@ public class HomePage extends BasePage {
 			adultCount = getText(adultCounter);
 			if (adultCount.equals(search.getAdultCount())) {
 				click(adultCounter);
-				logger.info("User selected the number of adults");
+				logger.info("The number of adults selected " + adultCount);
 				break;
 
 			}
@@ -86,7 +86,7 @@ public class HomePage extends BasePage {
 			childCount = getText(childCounter);
 			if (childCount.equals(guest.getChildrenCount())) {
 				click(childCounter);
-				logger.info("User selected the number of Children");
+				logger.info("The number of Children selected " + childCount);
 				break;
 			}
 
@@ -105,7 +105,7 @@ public class HomePage extends BasePage {
 		for (WebElement childAgeDropDown : listOfChildAgeDropDown) {
 			selectDropDown(childAgeDropDown, search.getChildrenAge().get(i));
 			i++;
-			logger.info("user is filling the age of each children");
+			logger.info("The age of each children " + search.getChildrenAge().get(i));
 
 		}
 	}
@@ -126,6 +126,7 @@ public class HomePage extends BasePage {
 		logger.info("selecting travelling for reason");
 		if (getText(travellingReasonPopup).equalsIgnoreCase(guest.getTravellingReason()))
 			click(travellingReasonPopup);
+		logger.info("travelling reason is " +guest.getTravellingReason());
 
 	}
 

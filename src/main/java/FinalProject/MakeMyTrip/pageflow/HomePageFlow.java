@@ -15,17 +15,20 @@ public class HomePageFlow {
 	 * 
 	 * @param SearchBO
 	 */
-	public static void performSearch(SearchBO search) {
+	public static void performSearch(SearchBO search, HomePage home) {
 		logger.info("Initiate search process");
-		HomePage home = new HomePage(8);
 		home.launch();
-		home.verifyCurrentUrl();
+		boolean urlIsCorrect = home.verifyCurrentUrl();
+		if(urlIsCorrect) {
 		home.fillAdultCount(search);
 	    home.fillChildrenCount(search);
 	    home.fillChildrenAge(search);
 	    home.clickApply();
 	    home.selectTravellingReason(search);
 	    home.clickSearch();
+		}else {
+			logger.error("url is not correct. Kindly check the url");
+		}
 	}
 
 }

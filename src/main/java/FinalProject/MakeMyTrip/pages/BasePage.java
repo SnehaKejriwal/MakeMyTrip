@@ -3,7 +3,6 @@ package FinalProject.MakeMyTrip.pages;
 import java.util.List;
 import java.util.Set;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

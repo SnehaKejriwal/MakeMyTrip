@@ -6,6 +6,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import FinalProject.MakeMyTrip.pojo.HotelBO;
 import FinalProject.MakeMyTrip.pojo.SearchBO;
 
 public class HotelDetailPage extends BasePage {
@@ -18,7 +20,8 @@ public class HotelDetailPage extends BasePage {
 	// locator
 	By recommended_room_field = By.cssSelector(".comboTitle");
 	By roomType_header = By.cssSelector(".roomheader");
-	By RoomTypeRow = By.cssSelector(".roomLeftContRow");
+	By roomTypeRow = By.cssSelector(".roomLeftContRow");
+	By roomTypeName = By.cssSelector(".sticky>h2");
 	By addRoomBtn = By.cssSelector(".Middle #detpg_multi_2_add_room");
 	By selectRoomBtn = By.xpath("//a[text() ='SELECT ROOM']");
 	By reviewDetails_button = By.id("detpg_confirm_booking_btn");
@@ -57,17 +60,21 @@ public class HotelDetailPage extends BasePage {
 	}
 
 	// method to add Room
-	public void addRoom(boolean recommendedSectionAvailable) {
+	public void addRoom(boolean recommendedSectionAvailable,HotelBO hotel) {
 		logger.info("Adding room");
 		WebElement roomTypeHeader = getElement(roomType_header);
 		scrollIntoView(roomTypeHeader);
+		WebElement roomType = getElement(roomTypeName);
 		if (recommendedSectionAvailable) {
-			WebElement roomsRow = getElement(RoomTypeRow);
-			WebElement room = roomsRow.findElement(addRoomBtn);
+			WebElement roomsRow = getElement(roomTypeRow);
+			WebElement room = roomsRow.findElement(addRoomBtn);	
+			hotel.setRoomType(getText(roomType));
 			click(room);
-			logger.info("Room Added");
+			logger.info("Room Added of type " +hotel.getRoomType());
 		} else {
+			hotel.setRoomType(getText(roomType));
 			click(selectRoomBtn);
+			logger.info("Room Added of type " +hotel.getRoomType());
 		}
 	}
 

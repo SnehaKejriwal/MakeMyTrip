@@ -13,24 +13,25 @@ public class SearchListingPageFlow {
 	/*
 	 * method to apply filter on search Result and Select Hotel Based on SearchBO
 	 * 
-	 * @param SearchBO
+	 * @param SearchBO, HotelBO
 	 */
-	public static void selectHotelBasedOnFilter(SearchBO search) {
+	public static HotelBO selectHotelBasedOnFilter(SearchBO search, SearchListingPage searchListingPage) {
 		logger.info("Applying filters on searchResult");
-		SearchListingPage searchListingPage = new SearchListingPage(10);
 
 		boolean searchCriteriaVerified = searchListingPage.verifySearchCriteria(search, "value");
 		logger.info("search criteria verified " + searchCriteriaVerified);
-
+ 
 		searchListingPage.applyPricePerNightFilter();
 
 		searchListingPage.applyUserRatingFilter(search);
 
-		boolean filterAppliedCorrectly = searchListingPage.verifyAppliedFilterContent(search);
-		logger.info("Filter Applied correctly " + filterAppliedCorrectly);
+		boolean filterApplied = searchListingPage.verifyAppliedFilterContent(search);
+		logger.info("Filter Applied " + filterApplied);
 
 		HotelBO hotel = searchListingPage.selectHotel();
 		logger.info("Name of the hotel is " + hotel.getHotelName());
+		
+		return hotel;
 	}
 
 }

@@ -21,7 +21,8 @@ public class SearchListingPage extends BasePage {
 
 	// locators
 	By minimum_price_filter = By.cssSelector("[role='slider']");
-	By propertyType_filter = By.cssSelector("#hlistpg_fr_property_types");
+	// By propertyType_filter = By.cssSelector("#hlistpg_fr_property_types");
+	By userRatingLabel = By.cssSelector("#hlistpg_fr_user_rating>div");
 	By userRating_filter_checkbox = By.cssSelector("#hlistpg_fr_user_rating .checkmarkOuter>label");
 
 	By appliedFilterArea = By.cssSelector(".appliedFilters>li>span");
@@ -49,14 +50,17 @@ public class SearchListingPage extends BasePage {
 		WebElement city = getElement(city_name);
 		String cityName = getAttribute(city, name);
 		search.setCity(cityName);
+		logger.info("City Name " + cityName);
 
 		WebElement checkin = getElement(checkin_date);
 		String checkInDate = getAttribute(checkin, name);
 		search.setCheckinDate(checkInDate);
+		logger.info("Checkin date " + checkInDate);
 
 		WebElement checkout = getElement(checkout_date);
 		String checkOutDate = getAttribute(checkout, name);
 		search.setCheckoutDate(checkOutDate);
+		logger.info("Checkout date " + checkOutDate);
 
 		WebElement room_guest_info = getElement(rooms_guests_details);
 		String roomGuestDetails = getAttribute(room_guest_info, name);
@@ -82,11 +86,12 @@ public class SearchListingPage extends BasePage {
 	public void applyPricePerNightFilter() {
 		logger.info("Applying price filter");
 		try {
-		if (isElementDisplayed(minimum_price_filter)) {
-			WebElement priceFilterSlider = getElement(minimum_price_filter);
-			dragAndDropBy(priceFilterSlider);
-			logger.info("price filter applied");
-		} }catch(NoSuchElementException e) {
+			if (isElementDisplayed(minimum_price_filter)) {
+				WebElement priceFilterSlider = getElement(minimum_price_filter);
+				dragAndDropBy(priceFilterSlider);
+				logger.info("price filter applied");
+			}
+		} catch (NoSuchElementException e) {
 			logger.info("Exception Handled");
 			logger.error("Filter is not applied");
 		}
@@ -100,9 +105,9 @@ public class SearchListingPage extends BasePage {
 	public void applyUserRatingFilter(SearchBO search) {
 		logger.info("Applying user rating filter");
 		try {
-			if (isElementDisplayed(propertyType_filter)) {
-				WebElement propertyTypeFilter = getElement(propertyType_filter);
-				scrollIntoView(propertyTypeFilter);
+			if (isElementDisplayed(userRatingLabel)) {
+				WebElement userRatingFilter = getElement(userRatingLabel);
+				scrollIntoView(userRatingFilter);
 				List<WebElement> listUserRating = getListOfWebElement(userRating_filter_checkbox);
 				for (WebElement userRating : listUserRating) {
 					String userRatingText = getText(userRating);
@@ -133,7 +138,7 @@ public class SearchListingPage extends BasePage {
 		for (WebElement appliedFilter : listAppliedFilter) {
 			String filterText = getText(appliedFilter);
 			if (filterText.equalsIgnoreCase(search.getPricePerNight())
-					|| filterText.equalsIgnoreCase(search.getUserRating())) {
+					&& filterText.equalsIgnoreCase(search.getUserRating())) {
 				appliedFilterIsCorrect = true;
 				logger.info("Applied filter is correct");
 			} else {
@@ -151,22 +156,24 @@ public class SearchListingPage extends BasePage {
 	 */
 	public HotelBO selectHotel() {
 		logger.info("initiating selection of hotel");
-		List<WebElement> listOfHotels = getListOfWebElement(hotel_list);
 		HotelBO hotel = new HotelBO();
-		if (listOfHotels.size() > 5) {
-			logger.info("selecting hotel");
-			WebElement hotelName = listOfHotels.get(4).findElement(hotel_name);
-			String nameOfHotel = getText(hotelName);
-			hotel.setHotelName(nameOfHotel);
-			click(listOfHotels.get(4));
-		} else {
-			logger.info("selecting hotel");
-			WebElement hotelName = listOfHotels.get(listOfHotels.size() - 1).findElement(hotel_name);
-			String nameOfHotel = getText(hotelName);
-			hotel.setHotelName(nameOfHotel);
-			click(listOfHotels.get(listOfHotels.size() - 1));
-		}
+		if (isElementDisplayed(hotel_list)) {
+			List<WebElement> listOfHotels = getListOfWebElement(hotel_list);
 
+			if (listOfHotels.size() > 5) {
+				logger.info("selecting hotel");
+				WebElement hotelName = listOfHotels.get(4).findElement(hotel_name);
+				String nameOfHotel = getText(hotelName);
+				hotel.setHotelName(nameOfHotel);
+				click(listOfHotels.get(4));
+			} else {
+				logger.info("selecting hotel");
+				WebElement hotelName = listOfHotels.get(listOfHotels.size() - 1).findElement(hotel_name);
+				String nameOfHotel = getText(hotelName);
+				hotel.setHotelName(nameOfHotel);
+				click(listOfHotels.get(listOfHotels.size() - 1));
+			}
+		}
 		return hotel;
 	}
 
