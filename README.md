@@ -45,6 +45,8 @@ MakeMyTrip/
 │         ├── FinalProject.MakeMyTrip.files.SearchCriteriaExcelReader.java
 │      ├── pageflow 
 │         ├── FinalProject.MakeMyTrip.pageflow.HomePageFlow.java
+│         ├── FinalProject.MakeMyTrip.pageflow.HotelDetailsPageFlow.java
+│         ├── FinalProject.MakeMyTrip.pageflow.ReviewPageFlow.java
 │         ├── FinalProject.MakeMyTrip.pageflow.SearchListingPageFlow.java
 │      ├── pages
 │         ├── FinalProject.MakeMyTrip.pages.BasePage.java
