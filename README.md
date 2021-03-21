@@ -116,10 +116,11 @@ I have defined two files
 In this, I have defined test data file. I have used excel as external source for defining searchCriteria.
 
 #### Known Bug
-1. LoginSignUp pop-up in homePage is not handled(tried handling with NoSuchElementException but was not able to handle properly). Same happens in Review Page when       recommendation section is not available.
-2. Filter pricePerNight-- sometime its works sometime it doesnot.
-3. AddingRoom-- Currently script is only adding one room . Not checking based on the Guest count.
-4. In Firefox Browser script works only till searching of the hotel.
+1. LoginSignUp pop-up in homePage is not handled properly.If pop-up displayed script will work else script will failed because of     NoSuchElementException.Tried handling those but was not able to handle.
+2. Same issue in Review Page when recommendation section is not available.
+3. Filter pricePerNight-- sometime its works sometime it doesnot.
+4. AddingRoom-- Currently script is only adding one room . Not checking based on the Guest count.
+5. In Firefox Browser script works only till searching of the hotel.
 
 ## Creators
 
