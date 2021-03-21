@@ -16,6 +16,8 @@ public class HomePage extends BasePage {
 
 	// locators
 	By menu_hotels = By.cssSelector(".menu_Hotels");
+	By loginSignUpPopup = By.cssSelector(".autopop__wrap>p");
+	By pageBody = By.xpath("//body");
 	By rooms_guests_dropdown = By.id("guest");
 	By adult_counter_selectionBar = By.cssSelector("[data-cy='adultCount']>li");
 	By children_counter_selectionBar = By.cssSelector("[data-cy='childrenRange']+ul>li");
@@ -50,6 +52,24 @@ public class HomePage extends BasePage {
 		}
 
 		return userOnHotelPage;
+	}
+
+	/*
+	 * method to disable sign up pop-up after page load
+	 * 
+	 * @return boolean
+	 */
+	public boolean verifyLoginPopupDisplayed() {
+		boolean signUpPopupDisplayed = false;
+		if (isElementDisplayed(loginSignUpPopup)) {
+			click(pageBody);
+			logger.info("pop-up disabled");
+			signUpPopupDisplayed = true;
+		} else {
+			signUpPopupDisplayed = false;
+			logger.info("pop-up is not available");
+		}
+		return signUpPopupDisplayed;
 	}
 
 	/*
@@ -126,7 +146,7 @@ public class HomePage extends BasePage {
 		logger.info("selecting travelling for reason");
 		if (getText(travellingReasonPopup).equalsIgnoreCase(guest.getTravellingReason()))
 			click(travellingReasonPopup);
-		logger.info("travelling reason is " +guest.getTravellingReason());
+		logger.info("travelling reason is " + guest.getTravellingReason());
 
 	}
 

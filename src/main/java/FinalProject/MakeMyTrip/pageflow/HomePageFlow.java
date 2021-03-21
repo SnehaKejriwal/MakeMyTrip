@@ -20,6 +20,7 @@ public class HomePageFlow {
 		home.launch();
 		boolean urlIsCorrect = home.verifyCurrentUrl();
 		if(urlIsCorrect) {
+		home.verifyLoginPopupDisplayed();
 		home.fillAdultCount(search);
 	    home.fillChildrenCount(search);
 	    home.fillChildrenAge(search);
