@@ -18,8 +18,8 @@ Have used TestNG for writing testcases.
 1. City : default City 
 2. Check in : default checkin Date
 3. Check out : default checkout Date
-4. Room & Guest : 1 room, 4 adults and 3 children
-5. Age of Three Children : 1, 3 and 5 age
+4. Room & Guest : (1 room, 4 adults and 3 children) And (1 Room, 4 adults and 2 Children)
+5. Age of Three Children : (1, 3 and 5 age respectively) And (1, 3 age respectively)
 5. Travelling Reason : Work
 
 ##### Filter Criteria Used
@@ -114,6 +114,12 @@ I have defined two files
 
 ###### Source Folder src/test/resources
 In this, I have defined test data file. I have used excel as external source for defining searchCriteria.
+
+#### Known Bug
+1. LoginSignUp pop-up in homePage is not handled(tried handling with NoSuchElementException but was not able to handle properly). Same happens in Review Page when       recommendation section is not available.
+2. Filter pricePerNight-- sometime its works sometime it doesnot.
+3. AddingRoom-- Currently script is only adding one room . Not checking based on the Guest count.
+4. In Firefox Browser script works only till searching of the hotel.
 
 ## Creators
 
